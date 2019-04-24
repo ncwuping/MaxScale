@@ -10,11 +10,12 @@ RUN curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash -s 
  && yum deplist maxscale | grep provider | awk '{print $2}' | sort | uniq | grep -v maxscale | sed ':a;N;$!ba;s/\n/ /g' | xargs yum -y install \
  && rpm -Uvh ${MAXSCALE_URL} \
  && yum clean all \
- && rm -rf /tmp/*
-
+ && rm -rf /tmp/* \
+ \
 # Enable maxadmin cli
-RUN echo '[{"name": "root", "account": "admin", "password": ""}, {"name": "maxscale", "account": "admin", "password": ""}]' > /var/lib/maxscale/maxadmin-users \
- && chown maxscale:maxscale /var/lib/maxscale/maxadmin-users
+ && curl -k -L -R -o /var/lib/maxscale/maxscale.cnf https://github.com/ncwuping/MaxScale/raw/master/maxscale.cnf \
+ && echo '[{"name": "root", "account": "admin", "password": ""}, {"name": "maxscale", "account": "admin", "password": ""}]' > /var/lib/maxscale/maxadmin-users \
+ && chown maxscale:maxscale /var/lib/maxscale/{maxscale.cnf,maxadmin-users}
 
 # VOLUME for custom configuration
 VOLUME ["/var/lib/maxscale"]
