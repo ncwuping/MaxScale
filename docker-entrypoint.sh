@@ -16,7 +16,7 @@ sed -e 's!<ip_addr_of_server2>!'"${SERVER2_ADDR}"'!' \
     -i /var/lib/maxscale/maxscale.cnf
 
 if [ ! -f /var/lib/maxscale/.secrets ]; then
-  chroot --userspec=maxscale:maxscale /usr/bin/maxkeys
+  chroot --userspec=maxscale:maxscale / /usr/bin/maxkeys
 fi
 
 cipher=$( maxpasswd /var/lib/maxscale ${MAXSCALE_SECRET:-"maxscale-proxy"} )
