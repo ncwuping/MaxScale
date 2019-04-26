@@ -20,6 +20,7 @@ COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh \
 # backwards compat
  && ln -s /usr/local/bin/docker-entrypoint.sh /docker-entrypoint.sh
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 # VOLUME for custom configuration
 VOLUME ["/var/lib/maxscale"]
@@ -39,5 +40,4 @@ EXPOSE 4442
 EXPOSE 6603
 
 # Running MaxScale
-ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["maxscale", "-d", "-U", "maxscale", "-f", "/var/lib/maxscale/maxscale.cnf"]
