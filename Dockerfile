@@ -10,12 +10,16 @@ RUN curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash -s 
  && yum deplist maxscale | grep provider | awk '{print $2}' | sort | uniq | grep -v maxscale | sed ':a;N;$!ba;s/\n/ /g' | xargs yum -y install \
  && rpm -Uvh ${MAXSCALE_URL} \
  && yum clean all \
- && rm -rf /tmp/* \
- \
+ && rm -rf /tmp/*
+
 # Enable maxadmin cli
- && curl -k -L -R -o /var/lib/maxscale/maxscale.cnf https://github.com/ncwuping/MaxScale/raw/master/maxscale.cnf \
- && echo '[{"name": "root", "account": "admin", "password": ""}, {"name": "maxscale", "account": "admin", "password": ""}]' > /var/lib/maxscale/maxadmin-users \
- && chown maxscale:maxscale /var/lib/maxscale/{maxscale.cnf,maxadmin-users}
+COPY maxscale.cnf /var/lib/maxscale/
+COPY maxadmin-users /var/lib/maxscale/
+
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh \
+# backwards compat
+ && ln -s /usr/local/bin/docker-entrypoint.sh /docker-entrypoint.sh
 
 # VOLUME for custom configuration
 VOLUME ["/var/lib/maxscale"]
@@ -34,5 +38,6 @@ EXPOSE 4442
 ## CLI Listener
 EXPOSE 6603
 
-# Running Keepalived and MaxScale
-ENTRYPOINT ["/docker-entrypoint.sh"]
+# Running MaxScale
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["maxscale", "-d", "-U", "maxscale", "-f", "/var/lib/maxscale/maxscale.cnf"]
