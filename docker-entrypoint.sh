@@ -5,6 +5,8 @@ if [ -z "${SERVER2_ADDR}" -o -z "${SERVER3_ADDR}" ]; then
   exit 1
 fi
 
+chown maxscale:maxscale /var/lib/maxscale/{maxscale.cnf,maxadmin-users}
+
 if [ -n "${SERVER1_ADDR}" ]; then
   sed -e 's!<ip_addr_of_server1>!'"${SERVER1_ADDR}"'!' -i /var/lib/maxscale/maxscale.cnf
 fi
@@ -20,4 +22,4 @@ fi
 cipher=$( maxpasswd /var/lib/maxscale ${MAXSCALE_SECRET:-"maxscale-proxy"} )
 sed -e 's!<cipher_of_secret>!'"${cipher}"'!g' -i /var/lib/maxscale/maxscale.cnf
 
-/usr/bin/maxscale -d -U maxscale -f /var/lib/maxscale/maxscale.cnf
+exec "$@"
