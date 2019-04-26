@@ -6,7 +6,6 @@ ENV MAXSCALE_URL https://downloads.mariadb.com/MaxScale/${MAXSCALE_VERSION}/rhel
 
 RUN curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash -s -- --skip-server --skip-tools \
  && yum -y update \
- && yum -y install keepalived \
  && yum deplist maxscale | grep provider | awk '{print $2}' | sort | uniq | grep -v maxscale | sed ':a;N;$!ba;s/\n/ /g' | xargs yum -y install \
  && rpm -Uvh ${MAXSCALE_URL} \
  && yum clean all \
@@ -17,9 +16,8 @@ COPY maxscale.cnf /var/lib/maxscale/
 COPY maxadmin-users /var/lib/maxscale/
 
 COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh \
 # backwards compat
- && ln -s /usr/local/bin/docker-entrypoint.sh /docker-entrypoint.sh
+RUN ln -s usr/local/bin/docker-entrypoint.sh /
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 # VOLUME for custom configuration
