@@ -1,8 +1,8 @@
-FROM centos:latest
+FROM centos:7
 MAINTAINER Wu Ping <ncwuping@hotmail.com>
 
-ENV MAXSCALE_VERSION 2.2.21
-ENV MAXSCALE_URL https://downloads.mariadb.com/MaxScale/${MAXSCALE_VERSION}/rhel/7/x86_64/maxscale-${MAXSCALE_VERSION}-1.rhel.7.x86_64.rpm
+ENV MAXSCALE_VERSION 2.3.20
+ENV MAXSCALE_URL https://downloads.mariadb.com/MaxScale/${MAXSCALE_VERSION}/rhel/7/x86_64/maxscale-${MAXSCALE_VERSION}-1.centos.7.x86_64.rpm
 
 RUN curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | bash -s -- --skip-server --skip-tools \
  && yum -y update \
