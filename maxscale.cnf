@@ -86,9 +86,9 @@ weightby=serv_weight
 # MaxScale administration guide:
 # https://github.com/mariadb-corporation/MaxScale/blob/2.3/Documentation/Reference/MaxAdmin.md
 
-[MaxAdmin-Service]
-type=service
-router=cli
+#[MaxAdmin-Service]
+#type=service
+#router=cli
 
 # Listener definitions for the services
 #
@@ -108,8 +108,8 @@ service=Read-Write-Service
 protocol=MariaDBClient
 port=4006
 
-[MaxAdmin-Listener]
-type=listener
-service=MaxAdmin-Service
-protocol=maxscaled
-socket=default
+#[MaxAdmin-Listener]
+#type=listener
+#service=MaxAdmin-Service
+#protocol=maxscaled
+#socket=default
