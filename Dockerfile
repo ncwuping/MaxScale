@@ -34,10 +34,13 @@ EXPOSE 4006
 EXPOSE 4008
 
 ## Debug Listener
-EXPOSE 4442
+#EXPOSE 4442
 
 ## CLI Listener
-EXPOSE 6603
+#EXPOSE 6603
+
+## REST API for MaxCtrl
+EXPOSE 8989
 
 # Running MaxScale
 CMD ["maxscale", "-d", "-U", "maxscale", "-f", "/var/lib/maxscale/maxscale.cnf"]
