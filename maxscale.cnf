@@ -1,10 +1,10 @@
 # MaxScale documentation on GitHub:
-# https://github.com/mariadb-corporation/MaxScale/blob/2.2/Documentation/Documentation-Contents.md
+# https://github.com/mariadb-corporation/MaxScale/blob/2.3/Documentation/Documentation-Contents.md
 
 # Global parameters
 #
 # Complete list of configuration options:
-# https://github.com/mariadb-corporation/MaxScale/blob/2.2/Documentation/Getting-Started/Configuration-Guide.md
+# https://github.com/mariadb-corporation/MaxScale/blob/2.3/Documentation/Getting-Started/Configuration-Guide.md
 
 [maxscale]
 threads=1
@@ -41,14 +41,14 @@ serv_weight=4
 #
 # This will keep MaxScale aware of the state of the servers.
 # Galera Monitor documentation:
-# https://github.com/mariadb-corporation/MaxScale/blob/2.2/Documentation/Monitors/Galera-Monitor.md
+# https://github.com/mariadb-corporation/MaxScale/blob/2.3/Documentation/Monitors/Galera-Monitor.md
 
 [Galera-Monitor]
 type=monitor
 module=galeramon
 servers=server2,server3
 user=maxscale
-passwd=<cipher_of_secret>
+password=<cipher_of_secret>
 monitor_interval=2000
 use_priority=true
 disable_master_failback=true
@@ -60,31 +60,31 @@ disable_master_failback=true
 #
 
 # ReadConnRoute documentation:
-# https://github.com/mariadb-corporation/MaxScale/blob/2.2/Documentation/Routers/ReadConnRoute.md
+# https://github.com/mariadb-corporation/MaxScale/blob/2.3/Documentation/Routers/ReadConnRoute.md
 
 #[Read-Only-Service]
 #type=service
 #router=readconnroute
 #servers=server1
 #user=maxscale
-#passwd=<cipher_of_secret>
+#password=<cipher_of_secret>
 #router_options=slave
 
 # ReadWriteSplit documentation:
-# https://github.com/mariadb-corporation/MaxScale/blob/2.2/Documentation/Routers/ReadWriteSplit.md
+# https://github.com/mariadb-corporation/MaxScale/blob/2.3/Documentation/Routers/ReadWriteSplit.md
 
 [Read-Write-Service]
 type=service
 router=readwritesplit
 servers=server2,server3
 user=maxscale
-passwd=<cipher_of_secret>
-router_options=master_accept_reads=true
+password=<cipher_of_secret>
+master_accept_reads=true
 weightby=serv_weight
 
 # This service enables the use of the MaxAdmin interface
 # MaxScale administration guide:
-# https://github.com/mariadb-corporation/MaxScale/blob/2.2/Documentation/Reference/MaxAdmin.md
+# https://github.com/mariadb-corporation/MaxScale/blob/2.3/Documentation/Reference/MaxAdmin.md
 
 [MaxAdmin-Service]
 type=service
