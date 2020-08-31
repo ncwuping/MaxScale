@@ -18,13 +18,13 @@ threads=1
 [server1]
 type=server
 address=<ip_addr_of_server1>
-port=3306
+port=<port_of_server1>
 protocol=MariaDBBackend
 
 [server2]
 type=server
 address=<ip_addr_of_server2>
-port=3306
+port=<port_of_server2>
 protocol=MariaDBBackend
 priority=1
 serv_weight=1
@@ -32,7 +32,7 @@ serv_weight=1
 [server3]
 type=server
 address=<ip_addr_of_server3>
-port=3306
+port=<port_of_server3>
 protocol=MariaDBBackend
 priority=2
 serv_weight=4
