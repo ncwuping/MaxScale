@@ -14,7 +14,8 @@ if [ -n "${SERVER1_ADDR}" ]; then
       -i /var/lib/maxscale/maxscale.cnf
 fi
 
-sed -e 's!<ip_addr_of_server2>!'"${SERVER2_ADDR}"'!' \
+sed -e 's!<port_of_server1>!'"${SERVER1_PORT:-3306}"'!' \
+    -e 's!<ip_addr_of_server2>!'"${SERVER2_ADDR}"'!' \
     -e 's!<port_of_server2>!'"${SERVER2_PORT:-3306}"'!' \
     -e 's!<ip_addr_of_server3>!'"${SERVER3_ADDR}"'!' \
     -e 's!<port_of_server3>!'"${SERVER3_PORT:-3306}"'!' \
